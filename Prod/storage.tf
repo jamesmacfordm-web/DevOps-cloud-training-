@@ -1,26 +1,20 @@
 # S3 Bucket for application storage with private access
-# S3 Bucket for application storage with private access
 resource "aws_s3_bucket" "bs101_prod_app_bucket" {
   bucket = "bs101-prod-app-logs-${random_id.bucket_suffix.hex}"
-
   tags = {
-    Name = "bs101-uay-app-logs"
+    Name = "bs101-prod-app-logs"
   }
 }
-
 # Enforce ownership controls on the bucket
 resource "aws_s3_bucket_ownership_controls" "bs101_prod_app_bucket_ownership_controls" {
   bucket = aws_s3_bucket.bs101_prod_app_bucket.id
-
   rule {
     object_ownership = "BucketOwnerEnforced"
   }
 }
-
 # IAM Role to manage S3 bucket
 resource "aws_iam_role" "s3_management_role" {
-  name = "CloudIAMRoleName"
-
+  name = "CloudIAMRoleName-Prod"
   assume_role_policy = jsonencode({
     Version = "2012-10-17",
     Statement = [
@@ -34,12 +28,10 @@ resource "aws_iam_role" "s3_management_role" {
     ]
   })
 }
-
 # IAM Policy for the IAM Role to allow access to the S3 bucket
-resource "aws_iam_policy" "s3_management_policy" {
-  name        = "S3ManagementPolicy"
+resource "aws_iam_policy" "S3ManagementPolicy-Prod" {
+  name        = "S3ManagementPolicy-Prod"
   description = "Policy for S3 management role to manage bucket access."
-
   policy = jsonencode({
     Version = "2012-10-17",
     Statement = [
@@ -59,21 +51,17 @@ resource "aws_iam_policy" "s3_management_policy" {
     ]
   })
 }
-
 # Attach the policy to the IAM Role
 resource "aws_iam_role_policy_attachment" "s3_management_role_attachment" {
   role       = aws_iam_role.s3_management_role.name
-  policy_arn = aws_iam_policy.s3_management_policy.arn
+  policy_arn = aws_iam_policy.S3ManagementPolicy-Prod.arn
 }
-
 # Define a bucket policy to enforce ownership and access permissions
 resource "aws_s3_bucket_policy" "bs101_prod_app_bucket_policy" {
   bucket = aws_s3_bucket.bs101_prod_app_bucket.id
-
   policy = jsonencode({
     Version = "2012-10-17",
     Statement = [
-      # Allow specific IAM role access
       {
         Sid       = "AllowS3Management",
         Effect    = "Allow",
@@ -89,7 +77,6 @@ resource "aws_s3_bucket_policy" "bs101_prod_app_bucket_policy" {
           "${aws_s3_bucket.bs101_prod_app_bucket.arn}/*"
         ]
       },
-      # Allow CloudTrail to write logs to this bucket
       {
         Sid    = "AllowCloudTrailWrite",
         Effect = "Allow",
@@ -107,14 +94,3 @@ resource "aws_s3_bucket_policy" "bs101_prod_app_bucket_policy" {
     ]
   })
 }
-
-
-# EBS Volume for additional storage attached to the web server
-resource "aws_ebs_volume" "bs101-prod-app_web_ebs" {
-  availability_zone = "us-west-2a" # Corrected spelling
-  size              = 10           # Size in GB
-  tags = {
-    Name = "bs101-prod-app-web-ebs"
-  }
-}
-
