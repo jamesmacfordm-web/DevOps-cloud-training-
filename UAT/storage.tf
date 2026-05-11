@@ -19,7 +19,7 @@ resource "aws_s3_bucket_ownership_controls" "bs101-uat_bucket_ownership_controls
 
 # IAM Role to manage S3 bucket
 resource "aws_iam_role" "s3_management_role" {
-  name = "CloudIAMRoleName"
+  name = "CloudIAMRoleName-UAT"
 
   assume_role_policy = jsonencode({
     Version = "2012-10-17",
@@ -36,7 +36,7 @@ resource "aws_iam_role" "s3_management_role" {
 }
 
 # IAM Policy for the IAM Role to allow access to the S3 bucket
-resource "aws_iam_policy" "s3_management_policy" {
+resource "aws_iam_policy" "S3ManagementPolicy-UAT" {
   name        = "S3ManagementPolicy"
   description = "Policy for S3 management role to manage bucket access."
 
