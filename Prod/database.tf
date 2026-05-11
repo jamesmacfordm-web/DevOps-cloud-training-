@@ -1,4 +1,4 @@
-# DB Subnet Group (for high availability)
+﻿# DB Subnet Group (for high availability)
 resource "aws_db_subnet_group" "bs101-prod_subnet_group" {
   name       = "bs101-prod-app-db-subnet-group"
   subnet_ids = [aws_subnet.private_subnet_1.id, aws_subnet.private_subnet_2.id]
@@ -11,7 +11,7 @@ resource "aws_db_subnet_group" "bs101-prod_subnet_group" {
 # DB Security Group
 resource "aws_security_group" "bs101-prod_db_sg" {
   name   = "bs101-prod-app-db-sg"
-  vpc_id = aws_vpc.bs101-prod.id
+  vpc_id = aws_vpc.bs101_prod_app.id
 
   ingress {
     from_port       = 3306
@@ -51,3 +51,4 @@ resource "aws_db_instance" "bs101-prod_db" {
     Name = "bs101-prod-db"
   }
 }
+

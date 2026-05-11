@@ -80,7 +80,7 @@ resource "aws_route_table_association" "public_subnet_assoc_2" {
 # ---------- Private Subnets (App/DB Tier) ----------
 
 resource "aws_subnet" "private_subnet_1" {
-  vpc_id                  = aws_vpc.bs101-prod.id
+  vpc_id                  = aws_vpc.bs101_prod_app.id
   cidr_block              = "10.1.1.0/24"
   availability_zone       = "af-south-1a"
   map_public_ip_on_launch = false
@@ -91,7 +91,7 @@ resource "aws_subnet" "private_subnet_1" {
 }
 
 resource "aws_subnet" "private_subnet_2" {
-  vpc_id                  = aws_vpc.bs101-prod.id
+  vpc_id                  = aws_vpc.bs101_prod_app.id
   cidr_block              = "10.1.2.0/24"
   availability_zone       = "af-south-1b"
   map_public_ip_on_launch = false
@@ -146,7 +146,7 @@ resource "aws_security_group" "vpc_web_sg" {
 resource "aws_security_group" "vpc_app_sg" {
   name        = "bs101-prod-app-sg"
   description = "Allow HTTP from Web SG"
-  vpc_id      = aws_vpc.bs101-prod.id
+  vpc_id      = aws_vpc.bs101_prod_app.id
 
   ingress {
     description     = "Allow HTTP from Web Tier"
@@ -167,4 +167,5 @@ resource "aws_security_group" "vpc_app_sg" {
     Name = "bs101-prod-app-sg"
   }
 }
+
 
