@@ -37,7 +37,7 @@ resource "aws_iam_role" "s3_management_role" {
 
 # IAM Policy for the IAM Role to allow access to the S3 bucket
 resource "aws_iam_policy" "S3ManagementPolicy-UAT" {
-  name        = "S3ManagementPolicy"
+  name        = "S3ManagementPolicy-UAT"
   description = "Policy for S3 management role to manage bucket access."
 
   policy = jsonencode({
@@ -63,7 +63,7 @@ resource "aws_iam_policy" "S3ManagementPolicy-UAT" {
 # Attach the policy to the IAM Role
 resource "aws_iam_role_policy_attachment" "s3_management_role_attachment" {
   role       = aws_iam_role.s3_management_role.name
-  policy_arn = aws_iam_policy.s3_management_policy.arn
+ policy_arn = aws_iam_policy.S3ManagementPolicy-UAT.arn
 }
 
 # Define a bucket policy to enforce ownership and access permissions
@@ -111,7 +111,7 @@ resource "aws_s3_bucket_policy" "bs101-uat_bucket_policy" {
 
 # EBS Volume for additional storage attached to the web server
 resource "aws_ebs_volume" "bme-uat-app_web_ebs" {
-  availability_zone = "us-west-2a" # Corrected spelling
+  availability_zone = "af-south-1a" # Corrected spelling
   size              = 10           # Size in GB
   tags = {
     Name = "bme-uat-app-web-ebs"
