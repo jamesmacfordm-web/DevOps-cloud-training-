@@ -107,15 +107,3 @@ resource "aws_s3_bucket_policy" "bs101-uat_bucket_policy" {
     ]
   })
 }
-
-
-# EBS Volume for additional storage attached to the web server
-resource "aws_ebs_volume" "bme-uat-app_web_ebs" {
- availability_zone = "af-south-1a" # Corrected spelling
-  size              = 10           # Size in GB
-  tags = {
-    Name = "bme-uat-app-web-ebs"
-  }
-}
-
-
