@@ -29,7 +29,7 @@ resource "aws_lb_target_group" "bs101_prod_tg" {
   name        = "bs101-prod-app-tg"
   port        = 80
   protocol    = "HTTP"
-  vpc_id      = aws_vpc.bs101-prod.id
+  vpc_id      = aws_vpc.bs101_prod_app.id
   target_type = "instance"
 
   health_check {
@@ -82,4 +82,5 @@ resource "aws_route53_record" "bs101_prod_record" {
     evaluate_target_health = true
   }
 }
+
 
