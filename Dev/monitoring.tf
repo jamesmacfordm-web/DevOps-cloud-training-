@@ -64,13 +64,14 @@ resource "aws_s3_bucket_policy" "ssl-dev_monitoring_bucket_policy" {
     ]
   })
 }
-
 # CloudTrail for tracking API calls and activity logs
 resource "aws_cloudtrail" "ssl-dev_trail" {
   name                       = "ssl-dev-app-trail2"
   s3_bucket_name             = aws_s3_bucket.ssl-dev_monitoring_bucket.bucket
   is_multi_region_trail      = false
   enable_log_file_validation = true
+
+  depends_on = [aws_s3_bucket_policy.ssl-dev_monitoring_bucket_policy]
 
   tags = {
     Name = "ssl-dev-app-cloudtrail"
