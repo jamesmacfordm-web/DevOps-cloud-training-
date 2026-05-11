@@ -1,5 +1,5 @@
-resource "aws_instance" "bs101_prod" {
-  ami                         = "ami-066a7fbea5161f451"
+﻿resource "aws_instance" "bs101_prod" {
+  ami                         = "ami-01c5d463c1a2e28b7"
   instance_type               = "t3.micro"
   subnet_id                   = aws_subnet.public_subnet_1.id
   vpc_security_group_ids      = [aws_security_group.vpc_web_sg.id]
@@ -82,3 +82,4 @@ resource "aws_route53_record" "bs101_prod_record" {
     evaluate_target_health = true
   }
 }
+
