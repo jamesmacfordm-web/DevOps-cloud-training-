@@ -1,6 +1,6 @@
-# Public EC2 Instances (Web Tier)
+﻿# Public EC2 Instances (Web Tier)
 resource "aws_instance" "bs101_prod_web_1" {
-  ami                    = "ami-066a7fbea5161f451"
+  ami                    = "ami-01c5d463c1a2e28b7"
   instance_type          = "t3.micro"
   subnet_id              = aws_subnet.public_subnet_1.id
   vpc_security_group_ids = [aws_security_group.vpc_web_sg.id]
@@ -20,7 +20,7 @@ resource "aws_instance" "bs101_prod_web_1" {
 }
 
 resource "aws_instance" "bs101_prod_web_2" {
-  ami                    = "ami-066a7fbea5161f451"
+  ami                    = "ami-01c5d463c1a2e28b7"
   instance_type          = "t3.micro"
   subnet_id              = aws_subnet.public_subnet_2.id
   vpc_security_group_ids = [aws_security_group.vpc_web_sg.id]
@@ -41,7 +41,7 @@ resource "aws_instance" "bs101_prod_web_2" {
 
 # Private EC2 Instances (App Tier)
 resource "aws_instance" "bs101-prod_1" {
-  ami                    = "ami-066a7fbea5161f451"
+  ami                    = "ami-01c5d463c1a2e28b7"
   instance_type          = "t3.micro"
   subnet_id              = aws_subnet.private_subnet_1.id
   vpc_security_group_ids = [aws_security_group.vpc_app_sg.id]
@@ -61,7 +61,7 @@ resource "aws_instance" "bs101-prod_1" {
 }
 
 resource "aws_instance" "bs101-prod_2" {
-  ami                    = "ami-066a7fbea5161f451"
+  ami                    = "ami-01c5d463c1a2e28b7"
   instance_type          = "t3.micro"
   subnet_id              = aws_subnet.private_subnet_2.id
   vpc_security_group_ids = [aws_security_group.vpc_app_sg.id]
@@ -84,7 +84,7 @@ resource "aws_instance" "bs101-prod_2" {
 # resource "aws_lambda_function" "bs101-prod_lambda" {
 #   function_name = "bs101-prod-app-lambda"
 #   runtime       = "nodejs18.x"         # Ensure the runtime is supported
-#   handler       = "index.handler"      # Make sure this matches your code’s entry point
+#   handler       = "index.handler"      # Make sure this matches your codeâ€™s entry point
 
 #   # S3 bucket and key where the Lambda code is stored
 #   s3_bucket = "bs101-prod-app2"           # Correct bucket name
