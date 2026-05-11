@@ -1,4 +1,4 @@
-
+﻿
 # S3 Bucket for application storage with private access
 resource "aws_s3_bucket" "bs101-uat_bucket" {
   bucket = "bme-uat-app-logs-${random_id.bucket_suffix.hex}"
@@ -117,4 +117,5 @@ resource "aws_ebs_volume" "bme-uat-app_web_ebs" {
     Name = "bme-uat-app-web-ebs"
   }
 }
+
 
