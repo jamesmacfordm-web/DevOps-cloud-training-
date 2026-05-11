@@ -64,19 +64,19 @@ resource "aws_s3_bucket_policy" "bs101-uat_monitoring_bucket_policy" {
     ]
   })
 }
-
 # CloudTrail for tracking API calls and activity logs
-resource "aws_cloudtrail" "bs101-uat_trail" {
+resource "aws_cloudtrail" "bs101-uat-trail" {
   name                       = "bme-uat-app-trail2"
   s3_bucket_name             = aws_s3_bucket.bs101-uat_monitoring_bucket.bucket
   is_multi_region_trail      = false
   enable_log_file_validation = true
 
+  depends_on = [aws_s3_bucket_policy.bs101-uat_monitoring_bucket_policy]
+
   tags = {
     Name = "bme-uat-app-cloudtrail"
   }
 }
-
 # IAM Role for CloudWatch Alarms to send notifications to SNS
 resource "aws_iam_role" "cloudwatch_alarm_role" {
   name = "bme-uat-app-cloudwatch-alarm-role"
